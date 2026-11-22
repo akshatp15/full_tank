@@ -5,6 +5,8 @@
   - Frontend: React.js and Tailwind CSS
   - Backend: FastAPI and MySQL
 ## Setup
+- For this project you will need Docker Desktop to run the backend server and to store data into a MYSQL database
+  - To download Docker Desktop, use the following link: https://www.docker.com/products/docker-desktop/
 - For this project you will need to create a .env file once you have cloned/downloaded the project
   ### .env
   1) Create a file called .env inside the project at the root level.
@@ -31,38 +33,11 @@
 ## Running the Program
   1. Open a new terminal window after opening the project in VSCode
   2. Running the Backend Server
-      - ### Using Docker
-        - Open Docker Desktop on your computer to allow the containers to start
-        - To run the backend with Docker you can run the command below in your terminal  
+        - Open the Docker Desktop application on your computer to allow Docker to create and start the containers
+        - To run the backend with Docker, run the command below in your terminal  
           ```
           docker compose up --build -d  
           ```
-      - ### Using Command Line
-        - Change from the root directory to the backend sub-directory
-          ```
-          cd backend 
-          ```
-        - Create a Python virtual environment
-          ```
-          python -m venv .venv
-          ```
-        - Activate the virtual environment
-          - Windows
-            ```
-            .venv\Scripts\activate
-            ```
-          - Mac/Linux
-            ```
-            source venv/bin/activate
-            ```
-        - To install the required libraries, run the command below
-            ```
-            pip install -r requirements.txt
-            ```
-        - To start the backend server, run the command below
-            ```
-            uvicorn routes:app --reload       
-            ```
    3. Running the Frontend server
       - Open a new terminal window and change into the frontend sub-directory using the command below
          ```
