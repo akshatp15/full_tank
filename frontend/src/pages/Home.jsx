@@ -134,7 +134,7 @@ const Home = () => {
                         </h2>
 
                         <h3 className="text-2xl font-bold text-white">
-                            ${total.toFixed(2)}
+                            {total > 0 ? `$${total.toFixed(2)}` : null}
                         </h3>
 
                         <div className="mt-3 h-1 w-12 rounded-full bg-yellow-700"></div>
@@ -147,7 +147,7 @@ const Home = () => {
                         </h2>
 
                         <h3 className="text-2xl font-bold text-white">
-                            ${ytd_total.toFixed(2)}
+                            {ytd_total > 0 ? `$${ytd_total.toFixed(2)}` : null}
                         </h3>
 
                         <div className="mt-3 h-1 w-12 rounded-full bg-yellow-700"></div>
