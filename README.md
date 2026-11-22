@@ -1,57 +1,91 @@
 # Full Tank
 ## Project Overiew
-- This project is a fuelling tracking app which has the following features: JWT Authentication, fully responsive design, data storage in a MySQL database, and fuelling statistics including visualization.
+- This project is a fuelling tracking app which has the following features: JWT Authentication, fully responsive design, data storage in a MySQL database, and fuelling statistics including visualizations.
 - Tech Stack
   - Frontend: React.js and Tailwind CSS
   - Backend: FastAPI and MySQL
 ## Setup
 - For this project you will need to create a .env file once you have cloned/downloaded the project
-  requests
   ### .env
-  1) First if you don't have a MongoDB account you will need to create one. You can do so at this link [MongoDB Sign Up/Sign In](https://www.mongodb.com/cloud/atlas/register)
-  2) Once you create your account/login, create a new project by using the dropdown at the top left
-  3) Then select the cluster option and create a new cluster. In the cluster options select the free tier and unselect the preload sample dataset option if autoselected
-  4) On the Set up connection page press on the Create Database User button, then press on the Choose Connection Method button at the bottom right
-  5) Then select on drivers and make sure Node.js is selected and at the bottom copy the connection string with the show password option enabled
-     under the Add your connection string into your application code section
-  6) Then open the project in VSCode and inside the backend folder create a .env file. Then inside the .env file copy the code below and replace the MONGO_URI
-     with the string you copied in the previous step
+  1) Create a file called .env inside the project at the root level.
+  2) Then open the file inside an editor of your choice and copy the below into the file
       ```
-      MONGO_URI= copied connection string
-      PORT= 5001
+      JWT_SECRET_KEY=***********
+      DATABASE_URL=mysql+pymysql://root:********@mysql:3306/fullTank
+      MYSQL_ROOT_PASSWORD=*********
       ```
-  7) Finally go under the Network Access options on the options on the left and select the Add IP Address option and then select the Allow Access From Anywhere option
-     and confirm
+  3) Replace the asterisks in the file by following the steps below
+    - JWT_SECRET_KEY: For this environment variable you can pick any string you want which is at least 32 bytes, to randomly generate a string you can run the command below
+       ```
+        python -c "import secrets; print(secrets.token_hex(32))"
+        ```
+    - MY_SQL_ROOT_PASSWORD: For this environment variable, pick any password you want and replace the asterisks
+    - DATABASE_URL: For this environment variable, replace the asterisks with the password you used for the MY_SQL_ROOT_PASSWORD variable
+    - Example: Your .env file should look like something below, I will use the python command to generate the JWT_SECRET_KEY value, and select the password for MY_SQL_ROOT_PASSWORD as password123
+      ```
+      JWT_SECRET_KEY=793ce134812faebd3ab5f8c0df97a0d8f1ae26bebeae8b3b42eb96c1b1f9f98d
+      DATABASE_URL=mysql+pymysql://root:password123@mysql:3306/fullTank
+      MYSQL_ROOT_PASSWORD=password123
+      ```
 
-## Running the Program:
-  1. First open a new terminal window after opening the project in VSCode
-  2. Change from the root directory into the intro_project directory if necessary or stay in the quick_note directory
-      ```
-      cd quick_note // to change into the quick_note directory if necessary
-      ```
-  3. Installing the dependencies
-     - To install all the dependencies which will allow the project to work correctly run the command below in the terminal
-       ```
-        npm run build
-       ```
-  4. Run the backend server
-     - First change into the backend directory using the command below
-       ```
-        cd backend
-       ```
-      - Then to run the backend server run the command below
+## Running the Program
+  1. Open a new terminal window after opening the project in VSCode
+  2. Running the Backend Server
+      - ### Using Docker
+        - Open Docker Desktop on your computer to allow the containers to start
+        - To run the backend with Docker you can run the command below in your terminal  
+          ```
+          docker compose up --build -d  
+          ```
+      - ### Using Command Line
+        - Change from the root directory to the backend sub-directory
+          ```
+          cd backend 
+          ```
+        - Create a Python virtual environment
+          ```
+          python -m venv .venv
+          ```
+        - Activate the virtual environment
+          - Windows
+            ```
+            .venv\Scripts\activate
+            ```
+          - Mac/Linux
+            ```
+            source venv/bin/activate
+            ```
+        - To install the required libraries, run the command below
+            ```
+            pip install -r requirements.txt
+            ```
+        - To start the backend server, run the command below
+            ```
+            uvicorn routes:app --reload       
+            ```
+   3. Running the Frontend server
+      - Open a new terminal window and change into the frontend sub-directory using the command below
          ```
-          npm run dev
+          cd frontend
          ```
-   5. Run the frontend server
-     - Open a new terminal window and change into the quick_note directory if necessary
-     - Then change into the frontend directory using the command below
-       ```
-        cd backend
-       ```
-      - Then to run the frontend run the command below
+      - Then to run the frontend server, run the command below
          ```
           npm run dev
          ```
   7. To view the website and interact with it open a new browser window and type in localhost:5173
-  8. To check the data is being saved you can check the MongoDB cluster you created and also can check the upstash database to make sure the rate limiter is working correctly.
+     
+## Stopping the Servers and Cleanup
+  ### Backend
+  - Docker Commands 
+    - To stop the Docker containers and retain the data stored in the database, use the command below
+      ```
+      docker compose down
+      ```
+    - To stop the Docker containers and delete the data stored in the database, use the command below
+      ```
+      docker compose down -v
+      ```
+  - Command Line Commands
+    - To stop the backend server running on the command line, type Ctrl C or Cmd C in the terminal window running the backend
+  ### Frontend
+  - To stop the frontend server, type Ctrl C or Cmd C in the terminal window running the frontend
